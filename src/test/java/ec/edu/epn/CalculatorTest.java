@@ -1,14 +1,32 @@
 package ec.edu.epn;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import ec.edu.epn.Calculator;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterEach;
 
 
 
 public class CalculatorTest {
 
-    private final Calculator calc = new Calculator();
+    private Calculator calc;
+    @BeforeEach
+    void setUp() {
+        calc = new Calculator();
+    }
+
+    @AfterEach
+    void tearDown() {
+        calc = null;
+    }
+
 
     @Test
     public void testAdd() {
@@ -39,8 +57,8 @@ public class CalculatorTest {
     }
 
      @Test
-    public void testDivideByZero() {
-        // For JUnit 5, use assertThrows to check for exceptions
+    public void testDivideByZero_ThrowsException() {
+
         Assertions.assertThrows(IllegalArgumentException.class, () -> calc.divide(5, 0));
     }
 
@@ -51,4 +69,19 @@ public class CalculatorTest {
         assertTrue(calc.isEven(0));
         assertTrue(calc.isEven(-2));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "1,2,3",
+        "5,7,12",
+        "1,-2,-1"
+    })
+
+    public void testAddParameterized(int a, int b, int expected) {
+        assertEquals(expected, calc.add(a, b));
+    }
+    
+
+
+
 }
