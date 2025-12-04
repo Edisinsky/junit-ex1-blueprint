@@ -81,6 +81,21 @@ public class CalculatorTest {
         assertEquals(expected, calc.add(a, b));
     }
     
+    @Test
+void divide_DosNumerosPositivos_retornaCocienteCorrecto() {
+    // Arrange
+    int a = 10;
+    int b = 2;
+
+    // Act
+    double result = calc.divide(a, b);
+
+    // Assert
+    assertAll(
+        () -> assertEquals(5.0, result, "El cociente debería ser 5.0"),
+        () -> assertTrue(result > 0, "El resultado debe ser positivo")
+    );
+}
 
 
 
